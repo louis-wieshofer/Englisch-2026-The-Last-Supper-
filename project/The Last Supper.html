@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-motion="full">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Last Supper? — An essay on the food waste paradox</title>
+<meta name="description" content="We throw away a third of everything we grow. Meanwhile, 828 million people go to bed hungry. A scrollytelling essay by Louis Wieshofer & Ferdinand Kraetschmer." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..900,0..100;1,9..144,400..900,0..100&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/app.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+<!-- ────── Loading screen ────── -->
+<div class="loader" id="loader">
+  <div id="loader-canvas"></div>
+  <div class="progress"><div class="bar" id="loader-bar"></div></div>
+  <div class="label">ASSEMBLING</div>
+  <div class="sources">FAO · UN · WFP · UNEP FOOD WASTE INDEX 2024</div>
+</div>
+
+<!-- ────── Scroll progress ────── -->
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<!-- ────── Nav ────── -->
+<nav class="nav" id="nav">
+  <div class="inner">
+    <a href="#top" class="brand"><span class="dot"></span> THE LAST SUPPER?</a>
+    <div class="links">
+      <a class="link hide-mobile" href="#paradox">Paradox</a>
+      <a class="link hide-mobile" href="#problem-1">Aisle Six</a>
+      <a class="link hide-mobile" href="#problem-2">Graveyard</a>
+      <a class="link hide-mobile" href="#solutions">What to do</a>
+      <button class="nav-icon-btn" id="audio-toggle" aria-label="Ambient audio (decorative)" title="Ambient audio — coming soon">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 6h2l3-3v10L5 10H3z"/>
+          <path d="M11 5.5a3.5 3.5 0 0 1 0 5" opacity="0.5"/>
+          <line x1="12" y1="4" x2="4" y2="12" stroke-width="1"/>
+        </svg>
+      </button>
+      <button class="nav-icon-btn" id="theme-toggle" aria-label="Toggle theme">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 9.5A4.5 4.5 0 0 1 6.5 4a4.5 4.5 0 1 0 5.5 5.5z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ────── Hero ────── -->
+<section class="hero" id="top">
+  <canvas class="particles" id="hero-particles"></canvas>
+  <div class="container">
+    <div class="reveal">
+      <div class="caption" style="margin-bottom: 32px">A scrollytelling essay &nbsp;·&nbsp; 2026</div>
+    </div>
+    <h1 class="hero-title">
+      <span class="reveal" style="transition-delay: 100ms">THE</span>
+      <span class="reveal" style="transition-delay: 180ms">LAST</span>
+      <span class="reveal" style="transition-delay: 260ms">SUPPER</span>
+      <span class="globe-slot reveal" id="hero-globe" style="transition-delay: 400ms" aria-label="Earth with hunger heatmap"></span>
+    </h1>
+    <p class="hero-sub reveal" style="transition-delay: 500ms">
+      <em>We throw away a third of everything we grow.</em><br/>
+      Meanwhile, <em>828 million people</em> go to bed hungry. Scroll.
+    </p>
+  </div>
+  <div class="container hero-footer">
+    <div class="caption reveal" style="transition-delay: 700ms">Louis Wieshofer &amp; Ferdinand Kraetschmer</div>
+    <div class="scroll-indicator reveal" style="transition-delay: 800ms">
+      <div class="line"></div>
+      <div class="caption" style="font-size: 10px">scroll</div>
+    </div>
+  </div>
+</section>
+
+<!-- ────── Paradox ────── -->
+<section class="paradox" id="paradox">
+  <div class="container">
+    <div class="caption reveal" style="margin-bottom: var(--s-6)">01 · The Paradox</div>
+    <div class="wrap">
+      <div class="side waste reveal">
+        <div class="eyebrow"><span class="sq"></span> WASTE</div>
+        <span class="counter" data-counter="1300000000">0</span>
+        <div class="label">Tons of food wasted every year</div>
+        <p class="sub">Enough to feed <strong>2 billion people.</strong> Four times over.</p>
+      </div>
+      <div class="center">
+        <div class="hairline-v"></div>
+        <div id="paradox-scale" style="width:100%; height:100%"></div>
+      </div>
+      <div class="side hunger reveal" style="transition-delay: 200ms">
+        <div class="eyebrow" style="justify-content:flex-end"><span class="sq"></span> HUNGER</div>
+        <span class="counter" data-counter="828000000">0</span>
+        <div class="label">People going hungry tonight</div>
+        <p class="sub">One in ten humans. <strong>Most of them farmers.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────── Problem 1 — Supermarket ────── -->
+<section class="supermarket" id="problem-1">
+  <div class="container">
+    <div class="section-eyebrow reveal">Problem 01 &nbsp;&nbsp; The Supermarket</div>
+    <h2 class="section-title amber reveal" style="transition-delay: 100ms">Aisle&nbsp;Six:<br/>Where Food Goes<br/>to Die.</h2>
+
+    <div class="wrap">
+      <div class="market-scene reveal">
+        <div class="overlay-hud">
+          ITEMS WASTED IN THIS SESSION
+          <span class="n">0</span>
+        </div>
+        <div class="grid-floor"></div>
+        <div class="shelf s1"></div>
+        <div class="shelf s2"></div>
+        <div class="items">
+          <div class="item round" style="left:14%; top:16%; background:#F4A259"></div>
+          <div class="item" style="left:26%; top:15%; background:#E0CA3C"></div>
+          <div class="item tall" style="left:40%; top:13%; background:#BC4749"></div>
+          <div class="item round" style="left:54%; top:16%; background:#588157"></div>
+          <div class="item" style="left:66%; top:14%; background:#F4A259"></div>
+          <div class="item tall" style="left:78%; top:13%; background:#FAF0CA; opacity:0.8"></div>
+
+          <div class="item round" style="left:16%; top:46%; background:#BC4749"></div>
+          <div class="item tall" style="left:30%; top:44%; background:#588157"></div>
+          <div class="item" style="left:44%; top:46%; background:#E0CA3C"></div>
+          <div class="item round" style="left:58%; top:46%; background:#F4A259"></div>
+          <div class="item tall" style="left:70%; top:44%; background:#BC4749"></div>
+          <div class="item" style="left:82%; top:47%; background:#588157"></div>
+        </div>
+        <div class="dumpster"></div>
+      </div>
+
+      <div class="body">
+        <p class="reveal">Supermarkets discard <strong>perfectly edible food</strong> because of cosmetic standards and sell-by dates that have no legal basis. In the EU alone, retail accounts for <strong>5% of food waste</strong> — nine million tons a year.</p>
+
+        <p class="reveal" style="transition-delay: 100ms">A banana with one brown spot. A yogurt two days from its date. A dented can. <strong>All binned</strong>, despite being safe and nutritious.</p>
+
+        <blockquote class="pullquote reveal" style="transition-delay: 200ms">“We do not have a food shortage. We have a food distribution catastrophe.”</blockquote>
+
+        <p class="reveal" style="transition-delay: 300ms">That waste carries a carbon footprint equivalent to <strong>37 million cars</strong> on the road. Food waste, if it were a country, would be the <strong>third-largest emitter</strong> of greenhouse gases on the planet — after China and the US.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────── Problem 2 — Fridge ────── -->
+<section class="fridge-section" id="problem-2">
+  <div class="container">
+    <div class="section-eyebrow reveal">Problem 02 &nbsp;&nbsp; The Home Fridge</div>
+    <h2 class="section-title amber reveal" style="transition-delay: 100ms">Your Fridge<br/>Is a Graveyard.</h2>
+
+    <div class="wrap">
+      <div class="fridge-panels-left">
+        <div class="fridge-panel reveal">
+          <div class="n">Panel A</div>
+          <p><strong>Households</strong> are the single largest source of food waste in high-income countries — bigger than restaurants, supermarkets and farms combined.</p>
+        </div>
+        <div class="fridge-panel reveal" style="transition-delay: 150ms">
+          <div class="n">Panel B</div>
+          <p>The average European household wastes <strong>70 kg of food per person</strong>, per year. Roughly <strong>€700 in the bin.</strong></p>
+        </div>
+      </div>
+
+      <div class="fridge reveal">
+        <div class="door d1">
+          <div class="handle"></div>
+          <div class="contents">
+            <div class="food"><span class="name">Milk</span><span class="days">forgotten 9 d</span><span class="co2">0.4 kg CO₂e</span></div>
+            <div class="food"><span class="name">Hummus</span><span class="days">forgotten 21 d</span><span class="co2">0.2 kg CO₂e</span></div>
+          </div>
+        </div>
+        <div class="door d2">
+          <div class="handle"></div>
+          <div class="contents">
+            <div class="food"><span class="name">Spinach</span><span class="days">forgotten 14 d</span><span class="co2">0.8 kg CO₂e</span></div>
+            <div class="food"><span class="name">Raspberries</span><span class="days">forgotten 6 d</span><span class="co2">1.1 kg CO₂e</span></div>
+            <div class="food"><span class="name">Cheddar</span><span class="days">forgotten 34 d</span><span class="co2">1.9 kg CO₂e</span></div>
+            <div class="food"><span class="name">Leftovers</span><span class="days">forgotten 11 d</span><span class="co2">0.6 kg CO₂e</span></div>
+          </div>
+        </div>
+        <div class="door d3">
+          <div class="handle"></div>
+          <div class="contents">
+            <div class="food"><span class="name">Yogurt ×3</span><span class="days">forgotten 4 d</span><span class="co2">0.9 kg CO₂e</span></div>
+            <div class="food"><span class="name">Tofu</span><span class="days">forgotten 18 d</span><span class="co2">0.3 kg CO₂e</span></div>
+          </div>
+        </div>
+        <div class="door d4">
+          <div class="handle"></div>
+          <div class="contents">
+            <div class="food"><span class="name">Bell peppers</span><span class="days">forgotten 12 d</span><span class="co2">0.5 kg CO₂e</span></div>
+            <div class="food"><span class="name">Carrots</span><span class="days">forgotten 22 d</span><span class="co2">0.3 kg CO₂e</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fridge-panels-right">
+        <div class="fridge-panel reveal" style="transition-delay: 100ms">
+          <div class="n">Panel C</div>
+          <p>Most of it isn't leftovers. It's food we bought and <strong>never opened.</strong></p>
+        </div>
+        <div class="fridge-panel reveal" style="transition-delay: 250ms">
+          <div class="n">Try it</div>
+          <p style="color: var(--cream-muted)">Click any drawer on the fridge.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────── Solutions ────── -->
+<section class="solutions" id="solutions">
+  <div class="container">
+    <div class="section-eyebrow reveal" style="color: var(--moss)">Solutions &nbsp;&nbsp; Three shifts</div>
+    <h2 class="section-title moss reveal" style="transition-delay: 100ms">Not Every Problem<br/>Needs a Miracle.</h2>
+    <p class="intro reveal" style="transition-delay: 200ms">
+      This one needs <strong>habits.</strong> Here are three shifts, ordered from easiest to biggest impact. None of them require you to become a different person.
+    </p>
+
+    <div class="cards">
+      <div class="flip-card reveal" style="transition-delay: 0ms">
+        <div class="inner">
+          <div class="face front">
+            <div>
+              <div class="num-large">01 &nbsp; EFFORT: LOW</div>
+            </div>
+            <div class="object"><div class="obj-list"></div></div>
+            <div class="title">Shop with<br/>a list.</div>
+            <div class="flip-hint">FLIP <span class="arrow">→</span></div>
+          </div>
+          <div class="face back">
+            <div class="num">–20%</div>
+            <p>Households that shop with a list waste up to 20% less food. Plan meals for 3–4 days, not 7. <em>Buy less, more often.</em></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card reveal" style="transition-delay: 100ms">
+        <div class="inner">
+          <div class="face front">
+            <div>
+              <div class="num-large">02 &nbsp; EFFORT: MEDIUM</div>
+            </div>
+            <div class="object">
+              <div class="obj-container">
+                <div class="steam"></div>
+                <div class="steam s2"></div>
+                <div class="steam s3"></div>
+                <div class="lid"></div>
+                <div class="glass"></div>
+              </div>
+            </div>
+            <div class="title">Love your<br/>leftovers.</div>
+            <div class="flip-hint">FLIP <span class="arrow">→</span></div>
+          </div>
+          <div class="face back">
+            <div class="num">#1</div>
+            <p>The easiest climate action in your kitchen: eat what you already bought. <em>“Leftover Friday”</em> is a rule worth stealing.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card reveal" style="transition-delay: 200ms">
+        <div class="inner">
+          <div class="face front">
+            <div>
+              <div class="num-large">03 &nbsp; EFFORT: ONE TAP</div>
+            </div>
+            <div class="object">
+              <div class="obj-phone">
+                <div class="app">
+                  <div class="hdr">NEARBY · 4 PICKUPS</div>
+                  <div class="row"><span>Bakery</span><span class="price">€3.90</span></div>
+                  <div class="row"><span>Grocer</span><span class="price">€4.50</span></div>
+                  <div class="row"><span>Café</span><span class="price">€2.99</span></div>
+                  <div class="row big">RESERVE</div>
+                </div>
+              </div>
+            </div>
+            <div class="title">Apps that<br/>rescue food.</div>
+            <div class="flip-hint">FLIP <span class="arrow">→</span></div>
+          </div>
+          <div class="face back">
+            <div class="num">90M</div>
+            <p>Rescue apps connect you to bakeries, restaurants and neighbors giving away surplus food at near-zero cost. <em>90 million users and counting.</em></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────── Outro pull quote ────── -->
+<section class="outro" id="outro">
+  <div class="container content">
+    <div class="caption reveal" style="margin-bottom: var(--s-5)">Coda</div>
+    <h2 class="outro-quote reveal" style="transition-delay: 100ms">
+      The cheapest meal<br/>
+      you'll ever eat<br/>
+      <em>is the one you don't<br/>throw away.</em>
+    </h2>
+    <div class="outro-source reveal" style="transition-delay: 300ms">
+      — Sources: FAO · UNEP Food Waste Index 2024 · World Food Programme
+    </div>
+  </div>
+</section>
+
+<!-- ────── Footer ────── -->
+<footer class="foot">
+  <div class="container">
+    <div class="grid3">
+      <div class="col">
+        <h5>Authorship</h5>
+        <div class="signature">Built by Louis Wieshofer &amp; Ferdinand Kraetschmer · 2026</div>
+        <div class="signature" style="margin-top: 12px; color: var(--cream-dim)">English · 4.2026</div>
+      </div>
+      <div class="col">
+        <h5>Sources &amp; further reading</h5>
+        <ul>
+          <li><a href="https://www.fao.org/food-loss-and-food-waste/" target="_blank" rel="noopener">FAO — Food Loss &amp; Waste</a></li>
+          <li><a href="https://www.unep.org/resources/publication/food-waste-index-report-2024" target="_blank" rel="noopener">UNEP — Food Waste Index 2024</a></li>
+          <li><a href="https://hungermap.wfp.org/" target="_blank" rel="noopener">WFP — Hunger Map Live</a></li>
+          <li><a href="https://www.toogoodtogo.com/" target="_blank" rel="noopener">Too Good To Go</a></li>
+        </ul>
+      </div>
+      <div class="col rightcol">
+        <h5>Artifacts</h5>
+        <div class="icons">
+          <a class="nav-icon-btn" href="handoff/" aria-label="Claude Code handoff">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="5,4 2,8 5,12"/><polyline points="11,4 14,8 11,12"/>
+            </svg>
+          </a>
+          <a class="nav-icon-btn" href="frames.html" aria-label="Design frames canvas">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+              <rect x="2" y="3" width="5" height="4"/><rect x="9" y="3" width="5" height="4"/>
+              <rect x="2" y="9" width="5" height="4"/><rect x="9" y="9" width="5" height="4"/>
+            </svg>
+          </a>
+        </div>
+        <ul>
+          <li><a href="handoff/">Dev handoff →</a></li>
+          <li><a href="frames.html">9 frames →</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>No cookies. No trackers. No ads. Just facts.</span>
+      <span>↑ back to top</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ────── Tweaks panel ────── -->
+<aside class="tweaks" id="tweaks" aria-label="Tweaks">
+  <h4>
+    <span>Tweaks</span>
+    <button id="tweaks-close" style="color: var(--cream-muted); font-size:16px; line-height:1;">×</button>
+  </h4>
+
+  <div class="group">
+    <label>Theme</label>
+    <div class="pills">
+      <div class="pill" data-group="theme" data-value="dark">Dark</div>
+      <div class="pill" data-group="theme" data-value="light">Light</div>
+    </div>
+  </div>
+
+  <div class="group">
+    <label>Accent hue</label>
+    <div class="swatches">
+      <div class="sw" data-group="accent" data-value="amber" style="background:#F4A259"></div>
+      <div class="sw" data-group="accent" data-value="crimson" style="background:#BC4749"></div>
+      <div class="sw" data-group="accent" data-value="gold" style="background:#E0CA3C"></div>
+    </div>
+  </div>
+
+  <div class="group">
+    <label>Motion intensity</label>
+    <div class="pills">
+      <div class="pill" data-group="motion" data-value="full">Full</div>
+      <div class="pill" data-group="motion" data-value="gentle">Gentle</div>
+      <div class="pill" data-group="motion" data-value="still">Still</div>
+    </div>
+  </div>
+</aside>
+
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>

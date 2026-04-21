@@ -1,0 +1,96 @@
+/* The Last Supper? — Design Tokens
+ * Canonical CSS variables. Import this file or copy the :root block.
+ */
+
+:root {
+  /* Color — dark (canonical) */
+  --bg-deep: #0A0908;
+  --bg-elev: #161513;
+  --bg-elev-2: #1E1C19;
+  --cream: #FAF0CA;
+  --cream-muted: rgba(250, 240, 202, 0.60);
+  --cream-dim: rgba(250, 240, 202, 0.32);
+
+  --amber: #F4A259;
+  --crimson: #BC4749;
+  --moss: #588157;
+  --gold: #E0CA3C;
+
+  --hairline: rgba(250, 240, 202, 0.08);
+  --hairline-strong: rgba(250, 240, 202, 0.16);
+
+  /* Accent is mutable via Tweaks */
+  --accent: var(--amber);
+
+  /* Type */
+  --font-display: 'Fraunces', 'Times New Roman', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Type scale */
+  --fs-display-xl: clamp(80px, 14vw, 220px);
+  --fs-display-l: clamp(56px, 7vw, 120px);
+  --fs-display-m: clamp(40px, 5vw, 72px);
+  --fs-headline: clamp(28px, 3vw, 40px);
+  --fs-body-l: clamp(18px, 1.5vw, 22px);
+  --fs-body-m: 17px;
+  --fs-caption: 13px;
+
+  /* Spacing (8px base) */
+  --s-1: 8px;
+  --s-2: 16px;
+  --s-3: 24px;
+  --s-4: 32px;
+  --s-5: 48px;
+  --s-6: 64px;
+  --s-7: 96px;
+  --s-8: 128px;
+  --s-9: 160px;
+
+  /* Grid */
+  --max-w: 1400px;
+  --gutter: 24px;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --dur-fast: 300ms;
+  --dur: 600ms;
+  --dur-slow: 900ms;
+
+  /* Effects */
+  --blur-glass: 20px;
+  --shadow-elev: 0 24px 60px -24px rgba(0,0,0,0.6);
+}
+
+/* Light mode — optional, still warm and editorial */
+:root[data-theme="light"] {
+  --bg-deep: #F6EFD8;
+  --bg-elev: #EFE6C7;
+  --bg-elev-2: #E7DCB5;
+  --cream: #1A1814;
+  --cream-muted: rgba(26, 24, 20, 0.64);
+  --cream-dim: rgba(26, 24, 20, 0.36);
+  --hairline: rgba(26, 24, 20, 0.10);
+  --hairline-strong: rgba(26, 24, 20, 0.20);
+}
+
+/* Motion-intensity modes */
+:root[data-motion="gentle"] {
+  --dur-fast: 400ms;
+  --dur: 800ms;
+  --dur-slow: 1200ms;
+}
+:root[data-motion="still"] {
+  --dur-fast: 0ms;
+  --dur: 0ms;
+  --dur-slow: 0ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur: 0ms;
+    --dur-slow: 0ms;
+  }
+}

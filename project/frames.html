@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>The Last Supper — Frames</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..900,0..100;1,9..144,400..900,0..100&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css"/>
+<style>
+  html, body { margin: 0; padding: 0; background: #f0eee9; font-family: 'Inter', sans-serif; overflow: hidden; }
+  /* Frame contents share the dark aesthetic; wrap each in .frame-inner */
+  .frame-inner {
+    width: 100%; height: 100%;
+    background: var(--bg-deep); color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden; position: relative;
+    padding: 40px; box-sizing: border-box;
+  }
+  .frame-inner .display {
+    font-family: 'Fraunces', serif; font-weight: 900;
+    font-variation-settings: 'opsz' 144, 'wght' 900, 'SOFT' 100;
+    line-height: 0.88; letter-spacing: -0.04em;
+  }
+  .frame-inner .mono {
+    font-family: 'JetBrains Mono', monospace; font-weight: 500;
+    letter-spacing: 0.15em; text-transform: uppercase; font-size: 10px;
+    color: rgba(250,240,202,0.6);
+  }
+  .frame-inner .amber { color: #F4A259; }
+  .frame-inner .crimson { color: #BC4749; }
+  .frame-inner .moss { color: #588157; }
+  .frame-inner .gold { color: #E0CA3C; }
+  .frame-inner .muted { color: rgba(250,240,202,0.6); }
+  .frame-inner hr { border: 0; height: 1px; background: rgba(250,240,202,0.08); margin: 16px 0; }
+
+  /* Globe placeholder for frames (static) */
+  .globe-static {
+    width: 120px; height: 120px; border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 40%, rgba(244,162,89,0.3), transparent 60%),
+      radial-gradient(circle at 65% 60%, rgba(188,71,73,0.5), transparent 50%),
+      radial-gradient(circle at 70% 35%, rgba(224,202,60,0.25), transparent 40%),
+      #1A1816;
+    display: inline-block; vertical-align: middle;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.6), 0 0 40px rgba(244,162,89,0.2);
+    position: relative;
+    border: 1px solid rgba(250,240,202,0.08);
+  }
+  .globe-static::after {
+    content: ""; position: absolute; inset: -8px;
+    border-radius: 50%; border: 1px solid rgba(244,162,89,0.25);
+  }
+
+  /* scale static */
+  .scale-static { width: 180px; height: 220px; position: relative; margin: 0 auto; }
+  .scale-static .post { position: absolute; left: 50%; top: 30px; bottom: 20px; width: 2px; background: rgba(250,240,202,0.5); transform: translateX(-50%); }
+  .scale-static .base { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 90px; height: 14px; background: rgba(250,240,202,0.5); border-radius: 2px; }
+  .scale-static .beam { position: absolute; left: 50%; top: 40px; width: 180px; height: 3px; background: rgba(250,240,202,0.85); transform: translateX(-50%) rotate(-18deg); transform-origin: center; border-radius: 2px; }
+  .scale-static .lpan, .scale-static .rpan { position: absolute; width: 70px; height: 20px; border-radius: 50%; border: 2px solid rgba(250,240,202,0.7); }
+  .scale-static .lpan { left: -10px; top: 70px; background: rgba(244,162,89,0.3); border-color: #F4A259; }
+  .scale-static .rpan { right: -10px; top: 22px; background: rgba(188,71,73,0.15); border-color: #BC4749; }
+  .scale-static .heap { position: absolute; left: -18px; top: 40px; width: 90px; height: 30px; background: radial-gradient(ellipse at center, #F4A259, rgba(244,162,89,0.3) 70%, transparent); border-radius: 50%; }
+
+  /* Supermarket mini */
+  .market-mini { position: relative; width: 100%; aspect-ratio: 4/5; border: 1px solid rgba(250,240,202,0.08); background: linear-gradient(180deg, #161513, #0A0908); border-radius: 4px; overflow: hidden; }
+  .market-mini .shelf { position: absolute; left: 8%; right: 8%; height: 26%; border-top: 1px solid rgba(250,240,202,0.15); border-bottom: 1px solid rgba(250,240,202,0.15); }
+  .market-mini .shelf.s1 { top: 14%; }
+  .market-mini .shelf.s2 { top: 44%; }
+  .market-mini .it { position: absolute; width: 14px; height: 14px; border-radius: 3px; background: #F4A259; }
+  .market-mini .it.r { border-radius: 50%; }
+  .market-mini .it.t { height: 22px; width: 11px; }
+  .market-mini .dump { position: absolute; left: 25%; right: 25%; bottom: 6%; height: 16%; background: rgba(188,71,73,0.2); border: 1px solid #BC4749; border-radius: 2px; }
+  .market-mini .hud { position: absolute; top: 8px; left: 8px; padding: 6px 8px; background: rgba(10,9,8,0.7); border: 1px solid rgba(250,240,202,0.15); border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.2em; color: rgba(250,240,202,0.6); }
+  .market-mini .hud b { display: block; color: #F4A259; font-size: 14px; margin-top: 3px; font-weight: 500; }
+
+  /* Fridge mini */
+  .fridge-mini { width: 140px; aspect-ratio: 3/5; background: linear-gradient(180deg, #2A2824, #1A1816); border-radius: 8px; border: 1px solid rgba(250,240,202,0.15); margin: 0 auto; position: relative; overflow: hidden; box-shadow: 0 12px 28px -10px rgba(0,0,0,0.5); }
+  .fridge-mini .d { position: absolute; left: 4px; right: 4px; background: linear-gradient(180deg, rgba(22,21,19,0.9), rgba(10,9,8,0.95)); border: 1px solid rgba(250,240,202,0.08); border-radius: 4px; transition: transform .5s; transform-origin: left center; }
+  .fridge-mini .d1 { top: 4px; height: 16%; }
+  .fridge-mini .d2 { top: 21%; height: 30%; }
+  .fridge-mini .d3 { top: 53%; height: 20%; }
+  .fridge-mini .d4 { top: 75%; bottom: 4px; }
+  .fridge-mini .d2 { transform: perspective(400px) rotateY(-55deg); }
+  .fridge-mini .d2::after {
+    content: "SPINACH · 14d\A RASPBERRIES · 6d\A CHEDDAR · 34d";
+    white-space: pre;
+    position: absolute; inset: 6px; font-family: 'JetBrains Mono', monospace;
+    font-size: 5px; line-height: 8px; color: #F4A259; padding: 6px;
+    background: rgba(250,240,202,0.03); border-radius: 3px; letter-spacing: 0.1em;
+    transform: rotateY(55deg);
+  }
+  .fridge-mini .handle { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 2px; height: 40%; background: rgba(250,240,202,0.3); border-radius: 1px; }
+
+  /* Solution mini card */
+  .card-mini { background: linear-gradient(180deg, rgba(88,129,87,0.1), rgba(22,21,19,0.8)); border: 1px solid rgba(250,240,202,0.08); border-radius: 4px; padding: 14px; aspect-ratio: 3/4; display: flex; flex-direction: column; justify-content: space-between; }
+  .card-mini.flipped { background: #588157; color: #0A0908; }
+  .card-mini.flipped .display { color: #0A0908; }
+  .card-mini .obj { flex: 1; display: flex; align-items: center; justify-content: center; margin: 10px 0; }
+  .obj-list-mini { width: 60%; aspect-ratio: 3/4; background: repeating-linear-gradient(transparent 0 9px, rgba(250,240,202,0.08) 9px 10px); background-color: rgba(250,240,202,0.06); transform: rotate(-3deg); }
+  .obj-jar-mini { width: 50%; aspect-ratio: 1/1; border: 1px solid #FAF0CA; border-radius: 3px; background: linear-gradient(180deg, rgba(88,129,87,0.3), rgba(244,162,89,0.3)); }
+  .obj-phone-mini { width: 45%; aspect-ratio: 9/18; background: #000; border: 1px solid rgba(250,240,202,0.15); border-radius: 10px; transform: rotate(4deg); }
+
+  /* Mobile frame */
+  .mobile-frame { width: 100%; height: 100%; background: var(--bg-deep); color: var(--cream); padding: 20px; box-sizing: border-box; overflow: hidden; position: relative; }
+  .mobile-frame .display { font-family: 'Fraunces', serif; font-weight: 900; font-variation-settings: 'opsz' 144, 'wght' 900, 'SOFT' 100; letter-spacing: -0.04em; line-height: 0.88; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const Frame = ({children, pad=40, style}) => (
+  <div className="frame-inner" style={{padding: pad, ...style}}>{children}</div>
+);
+
+// 01 - Loading
+const F_Loading = () => (
+  <Frame style={{background:'#000', display:'flex', alignItems:'center', justifyContent:'center'}}>
+    <div style={{position:'relative', width:240, height:240}}>
+      {[...Array(90)].map((_,i)=>{
+        const a = (i/90)*Math.PI*2;
+        const r = 60 + Math.sin(i*0.7)*20;
+        const d = 20 + (i%7)*6;
+        return <div key={i} style={{position:'absolute', left:'50%', top:'50%',
+          width:3, height:10, background:'#F4A259',
+          borderRadius:2,
+          transform:`translate(-50%,-50%) rotate(${a*180/Math.PI}deg) translateY(-${r+d}px)`,
+          opacity: 0.3+Math.random()*0.6}}/>;
+      })}
+      {[...Array(120)].map((_,i)=>{
+        const a = (i/120)*Math.PI*2;
+        const r = 45;
+        return <div key={'g'+i} style={{position:'absolute', left:'50%', top:'50%',
+          width:2.5, height:8, background:'#F4A259',
+          borderRadius:2,
+          transform:`translate(-50%,-50%) rotate(${a*180/Math.PI}deg) translateY(-${r}px)`,
+          opacity: 0.85}}/>;
+      })}
+    </div>
+    <div style={{position:'absolute', bottom:30, left:0, right:0, textAlign:'center'}}>
+      <div className="mono" style={{fontSize:9, letterSpacing:'0.3em'}}>FAO · UN · WFP · UNEP FOOD WASTE INDEX 2024</div>
+    </div>
+    <div style={{position:'absolute', bottom:60, left:'50%', transform:'translateX(-50%)', width:140, height:1, background:'rgba(250,240,202,0.15)'}}>
+      <div style={{width:'68%', height:1, background:'#E0CA3C'}}/>
+    </div>
+  </Frame>
+);
+
+// 02 - Hero
+const F_Hero = () => (
+  <Frame>
+    <div className="mono" style={{marginBottom:20}}>A SCROLLYTELLING ESSAY · 2026</div>
+    <div className="display" style={{fontSize: 68, color:'#FAF0CA'}}>
+      THE LAST<br/>SUPPER<span className="globe-static" style={{width:62, height:62, marginLeft:8}}></span>
+    </div>
+    <div style={{marginTop:30, color:'rgba(250,240,202,0.6)', fontFamily:'Fraunces', fontStyle:'italic', fontSize:16, lineHeight:1.45, maxWidth:420}}>
+      <em style={{color:'#FAF0CA'}}>We throw away a third of everything we grow.</em> Meanwhile, <em style={{color:'#FAF0CA'}}>828 million people</em> go to bed hungry. Scroll.
+    </div>
+    <div style={{position:'absolute', bottom:30, left:40, right:40, display:'flex', justifyContent:'space-between', alignItems:'flex-end'}}>
+      <div className="mono">L. WIESHOFER &amp; F. KRAETSCHMER</div>
+      <div style={{display:'flex', flexDirection:'column', alignItems:'center', gap:8}}>
+        <div style={{width:1, height:40, background:'linear-gradient(to bottom, transparent, rgba(250,240,202,0.6), transparent)'}}/>
+        <div className="mono" style={{fontSize:8}}>SCROLL</div>
+      </div>
+    </div>
+  </Frame>
+);
+
+// 03 - Paradox
+const F_Paradox = () => (
+  <Frame>
+    <div className="mono" style={{marginBottom:30}}>01 · THE PARADOX</div>
+    <div style={{display:'grid', gridTemplateColumns:'1fr auto 1fr', gap:20, alignItems:'center'}}>
+      <div>
+        <div className="mono" style={{color:'#F4A259', marginBottom:10}}><span style={{display:'inline-block', width:8, height:8, background:'#F4A259', marginRight:8, verticalAlign:'middle'}}/> WASTE</div>
+        <div className="mono" style={{fontSize:54, color:'#F4A259', letterSpacing:'-0.04em', lineHeight:1}}>1,300,000,000</div>
+        <div className="mono" style={{marginTop:12, color:'#FAF0CA', fontSize:9}}>TONS OF FOOD WASTED EVERY YEAR</div>
+        <div style={{marginTop:16, fontSize:13, color:'rgba(250,240,202,0.6)', maxWidth:260}}>Enough to feed <span style={{color:'#FAF0CA'}}>2 billion people.</span> Four times over.</div>
+      </div>
+      <div className="scale-static">
+        <div className="post"/><div className="base"/><div className="beam"/>
+        <div className="lpan"><div className="heap"/></div>
+        <div className="rpan"/>
+      </div>
+      <div style={{textAlign:'right'}}>
+        <div className="mono" style={{color:'#BC4749', marginBottom:10}}>HUNGER <span style={{display:'inline-block', width:8, height:8, background:'#BC4749', marginLeft:8, verticalAlign:'middle'}}/></div>
+        <div className="mono" style={{fontSize:54, color:'#BC4749', letterSpacing:'-0.04em', lineHeight:1}}>828,000,000</div>
+        <div className="mono" style={{marginTop:12, color:'#FAF0CA', fontSize:9}}>PEOPLE GOING HUNGRY TONIGHT</div>
+        <div style={{marginTop:16, fontSize:13, color:'rgba(250,240,202,0.6)', maxWidth:260, marginLeft:'auto'}}>One in ten humans. <span style={{color:'#FAF0CA'}}>Most of them farmers.</span></div>
+      </div>
+    </div>
+  </Frame>
+);
+
+// 04 - Supermarket
+const F_Market = () => (
+  <Frame>
+    <div className="mono" style={{marginBottom:12}}>— PROBLEM 01 · THE SUPERMARKET</div>
+    <div className="display amber" style={{fontSize:40, marginBottom:24}}>Aisle Six:<br/>Where Food<br/>Goes to Die.</div>
+    <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, alignItems:'flex-start'}}>
+      <div className="market-mini">
+        <div className="hud">ITEMS WASTED<br/><b>247</b></div>
+        <div className="shelf s1"/><div className="shelf s2"/>
+        {[[14,18],[26,17],[40,15],[54,18],[66,16],[16,48],[30,46],[44,48],[58,48],[70,46]].map(([l,t],i)=>(
+          <div key={i} className={"it "+(i%3===0?'r':i%3===1?'t':'')} style={{left:`${l}%`, top:`${t}%`, background:['#F4A259','#E0CA3C','#BC4749','#588157'][i%4]}}/>
+        ))}
+        <div className="dump"/>
+      </div>
+      <div>
+        <div style={{fontSize:12, color:'rgba(250,240,202,0.7)', lineHeight:1.55, marginBottom:14}}>Supermarkets discard perfectly edible food because of cosmetic standards. In the EU alone, retail accounts for <span style={{color:'#FAF0CA'}}>5% of food waste</span> — nine million tons a year.</div>
+        <div style={{fontFamily:'Fraunces', fontStyle:'italic', fontSize:18, color:'#E0CA3C', borderLeft:'2px solid #E0CA3C', padding:'8px 0 8px 14px', margin:'16px 0', lineHeight:1.2}}>"We do not have a food shortage. We have a food distribution catastrophe."</div>
+        <div style={{fontSize:12, color:'rgba(250,240,202,0.7)', lineHeight:1.55}}>If food waste were a country it would be the <span style={{color:'#FAF0CA'}}>third-largest emitter</span> of greenhouse gases on the planet.</div>
+      </div>
+    </div>
+  </Frame>
+);
+
+// 05 - Fridge
+const F_Fridge = () => (
+  <Frame>
+    <div className="mono" style={{marginBottom:12}}>— PROBLEM 02 · THE HOME FRIDGE</div>
+    <div className="display amber" style={{fontSize:40, marginBottom:20}}>Your Fridge<br/>Is a Graveyard.</div>
+    <div style={{display:'grid', gridTemplateColumns:'1fr auto 1fr', gap:20, alignItems:'center'}}>
+      <div style={{display:'grid', gap:12}}>
+        <div style={{padding:12, border:'1px solid rgba(250,240,202,0.08)', borderRadius:3, background:'rgba(22,21,19,0.5)', maxWidth:200, marginLeft:'auto'}}>
+          <div className="mono" style={{color:'#F4A259', marginBottom:6, fontSize:9}}>PANEL A</div>
+          <div style={{fontSize:11, color:'rgba(250,240,202,0.7)', lineHeight:1.45}}><span style={{color:'#FAF0CA'}}>Households</span> are the largest source of food waste in rich countries.</div>
+        </div>
+        <div style={{padding:12, border:'1px solid rgba(250,240,202,0.08)', borderRadius:3, background:'rgba(22,21,19,0.5)', maxWidth:200, marginLeft:'auto'}}>
+          <div className="mono" style={{color:'#F4A259', marginBottom:6, fontSize:9}}>PANEL B</div>
+          <div style={{fontSize:11, color:'rgba(250,240,202,0.7)', lineHeight:1.45}}>Average EU household: <span style={{color:'#FAF0CA'}}>70 kg/person/year.</span> €700 in the bin.</div>
+        </div>
+      </div>
+      <div className="fridge-mini">
+        <div className="d d1"><div className="handle"/></div>
+        <div className="d d2"><div className="handle"/></div>
+        <div className="d d3"><div className="handle"/></div>
+        <div className="d d4"><div className="handle"/></div>
+      </div>
+      <div style={{padding:12, border:'1px solid rgba(250,240,202,0.08)', borderRadius:3, background:'rgba(22,21,19,0.5)', maxWidth:200}}>
+        <div className="mono" style={{color:'#F4A259', marginBottom:6, fontSize:9}}>PANEL C</div>
+        <div style={{fontSize:11, color:'rgba(250,240,202,0.7)', lineHeight:1.45}}>Most of it isn't leftovers. It's food we bought and <span style={{color:'#FAF0CA'}}>never opened.</span></div>
+      </div>
+    </div>
+  </Frame>
+);
+
+// 06 - Solutions
+const F_Solutions = () => (
+  <Frame>
+    <div className="mono moss" style={{marginBottom:12, color:'#588157'}}>— SOLUTIONS · THREE SHIFTS</div>
+    <div className="display moss" style={{color:'#588157', fontSize:36, marginBottom:20}}>Not Every Problem<br/>Needs a Miracle.</div>
+    <div style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:12}}>
+      <div className="card-mini">
+        <div className="mono moss" style={{color:'#588157', fontSize:8}}>01 · LOW</div>
+        <div className="obj"><div className="obj-list-mini"/></div>
+        <div className="display" style={{fontSize:20}}>Shop with<br/>a list.</div>
+      </div>
+      <div className="card-mini flipped">
+        <div className="mono" style={{color:'#0A0908', fontSize:8, opacity:0.7}}>02 · BACK</div>
+        <div style={{fontFamily:'JetBrains Mono', fontSize:32, fontWeight:500, color:'#0A0908', marginTop:8}}>#1</div>
+        <div style={{fontFamily:'Fraunces', fontSize:13, lineHeight:1.3, color:'#0A0908'}}>The easiest climate action in your kitchen: eat what you already bought.</div>
+      </div>
+      <div className="card-mini">
+        <div className="mono moss" style={{color:'#588157', fontSize:8}}>03 · ONE TAP</div>
+        <div className="obj"><div className="obj-phone-mini"/></div>
+        <div className="display" style={{fontSize:20}}>Apps that<br/>rescue food.</div>
+      </div>
+    </div>
+  </Frame>
+);
+
+// 07 - Outro
+const F_Outro = () => (
+  <Frame style={{display:'flex', alignItems:'center'}}>
+    <div>
+      <div className="mono" style={{marginBottom:24}}>CODA</div>
+      <div className="display" style={{fontSize:54, lineHeight:0.92}}>
+        The cheapest meal<br/>
+        you'll ever eat<br/>
+        <em className="gold" style={{fontStyle:'italic', fontVariationSettings:'"opsz" 144, "wght" 500, "SOFT" 100'}}>is the one you don't<br/>throw away.</em>
+      </div>
+      <div className="mono" style={{marginTop:30, fontSize:9}}>— SOURCES: FAO · UNEP FOOD WASTE INDEX 2024 · WORLD FOOD PROGRAMME</div>
+    </div>
+  </Frame>
+);
+
+// 08 - Footer
+const F_Footer = () => (
+  <Frame>
+    <hr/>
+    <div style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:20, marginTop:30}}>
+      <div>
+        <div className="mono" style={{marginBottom:10}}>AUTHORSHIP</div>
+        <div className="mono" style={{color:'#FAF0CA', fontSize:10}}>BUILT BY LOUIS WIESHOFER<br/>&amp; FERDINAND KRAETSCHMER<br/>· 2026</div>
+        <div className="mono" style={{marginTop:14, color:'rgba(250,240,202,0.32)', fontSize:9}}>ENGLISH · 4.2026</div>
+      </div>
+      <div>
+        <div className="mono" style={{marginBottom:10}}>SOURCES &amp; FURTHER READING</div>
+        <div style={{fontFamily:'JetBrains Mono', fontSize:10, color:'#FAF0CA', lineHeight:2}}>
+          <div style={{borderBottom:'1px solid rgba(250,240,202,0.15)'}}>FAO — Food Loss &amp; Waste</div>
+          <div style={{borderBottom:'1px solid rgba(250,240,202,0.15)'}}>UNEP — Food Waste Index 2024</div>
+          <div style={{borderBottom:'1px solid rgba(250,240,202,0.15)'}}>WFP — Hunger Map Live</div>
+          <div style={{borderBottom:'1px solid rgba(250,240,202,0.15)'}}>Too Good To Go</div>
+        </div>
+      </div>
+      <div style={{textAlign:'right'}}>
+        <div className="mono" style={{marginBottom:10}}>ARTIFACTS</div>
+        <div className="mono" style={{color:'#FAF0CA', fontSize:10}}>DEV HANDOFF →<br/>9 FRAMES →</div>
+      </div>
+    </div>
+    <div style={{position:'absolute', bottom:30, left:40, right:40, paddingTop:16, borderTop:'1px solid rgba(250,240,202,0.08)', display:'flex', justifyContent:'space-between'}}>
+      <div className="mono">NO COOKIES. NO TRACKERS. NO ADS. JUST FACTS.</div>
+      <div className="mono">↑ BACK TO TOP</div>
+    </div>
+  </Frame>
+);
+
+// 09 - Mobile Hero
+const F_MobileHero = () => (
+  <Frame pad={0}>
+    <div className="mobile-frame">
+      <div className="mono" style={{display:'flex', justifyContent:'space-between', marginBottom:40}}>
+        <span style={{color:'#FAF0CA'}}>• THE LAST SUPPER?</span>
+        <span>☾</span>
+      </div>
+      <div className="mono" style={{marginBottom:20}}>A SCROLLYTELLING ESSAY · 2026</div>
+      <div className="display" style={{fontSize:52, color:'#FAF0CA'}}>
+        THE LAST SUPPER<span className="globe-static" style={{width:48, height:48, marginLeft:4}}></span>
+      </div>
+      <div style={{marginTop:24, color:'rgba(250,240,202,0.6)', fontFamily:'Fraunces', fontStyle:'italic', fontSize:15, lineHeight:1.45}}>
+        <em style={{color:'#FAF0CA'}}>We throw away a third of everything we grow.</em> Meanwhile, <em style={{color:'#FAF0CA'}}>828 million</em> go to bed hungry.
+      </div>
+      <div style={{position:'absolute', bottom:30, left:20, right:20, display:'flex', justifyContent:'space-between', alignItems:'flex-end'}}>
+        <div className="mono" style={{fontSize:8}}>L.W. &amp; F.K.</div>
+        <div style={{display:'flex', flexDirection:'column', alignItems:'center', gap:6}}>
+          <div style={{width:1, height:28, background:'linear-gradient(to bottom, transparent, rgba(250,240,202,0.6), transparent)'}}/>
+          <div className="mono" style={{fontSize:7}}>SCROLL</div>
+        </div>
+      </div>
+    </div>
+  </Frame>
+);
+
+// 09b - Mobile Fridge
+const F_MobileFridge = () => (
+  <Frame pad={0}>
+    <div className="mobile-frame">
+      <div className="mono" style={{marginBottom:14}}>— PROBLEM 02</div>
+      <div className="display amber" style={{fontSize:40}}>Your Fridge<br/>Is a Graveyard.</div>
+      <div style={{marginTop:20, display:'flex', justifyContent:'center'}}>
+        <div className="fridge-mini" style={{width:110}}>
+          <div className="d d1"><div className="handle"/></div>
+          <div className="d d2"><div className="handle"/></div>
+          <div className="d d3"><div className="handle"/></div>
+          <div className="d d4"><div className="handle"/></div>
+        </div>
+      </div>
+      <div style={{marginTop:16, padding:10, border:'1px solid rgba(250,240,202,0.08)', borderRadius:3, background:'rgba(22,21,19,0.5)'}}>
+        <div className="mono" style={{color:'#F4A259', marginBottom:5, fontSize:8}}>PANEL B</div>
+        <div style={{fontSize:11, color:'rgba(250,240,202,0.7)', lineHeight:1.45}}>Average EU household: <span style={{color:'#FAF0CA'}}>70 kg/person/year.</span> €700 in the bin.</div>
+      </div>
+    </div>
+  </Frame>
+);
+
+const App = () => (
+  <DesignCanvas>
+    <DCSection id="desktop" title="Desktop · 9 canonical frames" subtitle="Scroll narrative top-to-bottom · 1440×900 at design scale">
+      <DCArtboard id="loading" label="01 · Loading — mid-assembly" width={1440} height={900}><F_Loading/></DCArtboard>
+      <DCArtboard id="hero" label="02 · Hero — globe-as-punctuation" width={1440} height={900}><F_Hero/></DCArtboard>
+      <DCArtboard id="paradox" label="03 · Paradox — tilted scale" width={1440} height={900}><F_Paradox/></DCArtboard>
+      <DCArtboard id="market" label="04 · Aisle Six — mid-scroll" width={1440} height={900}><F_Market/></DCArtboard>
+      <DCArtboard id="fridge" label="05 · Fridge — drawer open" width={1440} height={900}><F_Fridge/></DCArtboard>
+      <DCArtboard id="solutions" label="06 · Solutions — one flipped" width={1440} height={900}><F_Solutions/></DCArtboard>
+      <DCArtboard id="outro" label="07 · Outro — pull quote" width={1440} height={900}><F_Outro/></DCArtboard>
+      <DCArtboard id="footer" label="08 · Footer" width={1440} height={900}><F_Footer/></DCArtboard>
+    </DCSection>
+    <DCSection id="mobile" title="Mobile · representative frames" subtitle="Hero + one section @ 390×844">
+      <DCArtboard id="m-hero" label="09 · Mobile hero" width={390} height={844}><F_MobileHero/></DCArtboard>
+      <DCArtboard id="m-fridge" label="09b · Mobile fridge" width={390} height={844}><F_MobileFridge/></DCArtboard>
+    </DCSection>
+  </DesignCanvas>
+);
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
