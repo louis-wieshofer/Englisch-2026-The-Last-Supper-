@@ -10,6 +10,7 @@ interface Entry {
   scene: ManagedScene;
   mounted: boolean;
   active: boolean;
+  failed?: boolean;
 }
 
 export class SceneManager {
@@ -21,18 +22,24 @@ export class SceneManager {
       (entries) => {
         entries.forEach((entry) => {
           const e = this.entries.find((x) => x.el === entry.target);
-          if (!e) return;
+          if (!e || e.failed) return;
           if (entry.isIntersecting) {
             if (!e.mounted) {
-              e.scene.mount(e.el);
-              e.mounted = true;
+              try {
+                e.scene.mount(e.el);
+                e.mounted = true;
+              } catch (err) {
+                e.failed = true;
+                console.warn('[SceneManager] scene mount failed, skipping:', err);
+                return;
+              }
             }
             if (!e.active) {
-              e.scene.resume?.();
+              try { e.scene.resume?.(); } catch { /* ignore */ }
               e.active = true;
             }
           } else if (e.active) {
-            e.scene.pause?.();
+            try { e.scene.pause?.(); } catch { /* ignore */ }
             e.active = false;
           }
         });
@@ -48,10 +55,14 @@ export class SceneManager {
 
   mountAllEagerly(): void {
     this.entries.forEach((e) => {
-      if (!e.mounted) {
+      if (e.failed || e.mounted) return;
+      try {
         e.scene.mount(e.el);
         e.mounted = true;
         e.active = true;
+      } catch (err) {
+        e.failed = true;
+        console.warn('[SceneManager] eager mount failed:', err);
       }
     });
   }

@@ -3,7 +3,7 @@ import * as THREE from 'three';
 export class Loader {
   private scene = new THREE.Scene();
   private camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
-  private renderer: THREE.WebGLRenderer;
+  private renderer!: THREE.WebGLRenderer;
   private globe = new THREE.Group();
   private grains: Array<{ mesh: THREE.Mesh; target: THREE.Vector3; delay: number; start: THREE.Vector3 }> = [];
   private startTime = performance.now();
@@ -14,12 +14,12 @@ export class Loader {
 
   constructor() {
     this.camera.position.z = 3.4;
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    this.renderer.setSize(240, 240, false);
   }
 
   mount(container: HTMLElement, onComplete?: () => void): void {
+    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer.setSize(240, 240, false);
     this.onComplete = onComplete;
     container.appendChild(this.renderer.domElement);
 

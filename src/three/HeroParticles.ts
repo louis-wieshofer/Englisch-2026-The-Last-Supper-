@@ -62,7 +62,7 @@ void main() {
 export class HeroParticles implements ManagedScene {
   private scene = new THREE.Scene();
   private camera = new THREE.OrthographicCamera(-1, 1, 1, -1, -1, 1);
-  private renderer: THREE.WebGLRenderer;
+  private renderer!: THREE.WebGLRenderer;
   private mesh?: THREE.Mesh;
   private material?: THREE.ShaderMaterial;
   private ro?: ResizeObserver;
@@ -73,13 +73,12 @@ export class HeroParticles implements ManagedScene {
   private cursor = new THREE.Vector2(0, 0);
   private res = new THREE.Vector2(1, 1);
 
-  constructor(private count = 500) {
+  constructor(private count = 500) {}
+
+  mount(container: HTMLElement): void {
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.setClearColor(0x000000, 0);
-  }
-
-  mount(container: HTMLElement): void {
     this.container = container;
     container.appendChild(this.renderer.domElement);
     this.resize();

@@ -47,7 +47,7 @@ const makeLabelTexture = (name: string, note: string): THREE.CanvasTexture => {
 export class Fridge implements ManagedScene {
   private scene = new THREE.Scene();
   private camera = new THREE.PerspectiveCamera(42, 0.6, 0.1, 100);
-  private renderer: THREE.WebGLRenderer;
+  private renderer!: THREE.WebGLRenderer;
   private drawers: Drawer[] = [];
   private raycaster = new THREE.Raycaster();
   private mouse = new THREE.Vector2();
@@ -58,12 +58,12 @@ export class Fridge implements ManagedScene {
 
   constructor() {
     this.camera.position.set(0, 0, 3.4);
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    this.renderer.setClearColor(0x000000, 0);
   }
 
   mount(container: HTMLElement): void {
+    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer.setClearColor(0x000000, 0);
     this.container = container;
     const w = container.clientWidth;
     const h = container.clientHeight;

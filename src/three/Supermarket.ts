@@ -15,7 +15,7 @@ const ITEM_COLORS = [0xbc4749, 0xf4a259, 0xe0ca3c, 0xfaf0ca, 0x588157, 0x7a6a3f]
 export class Supermarket implements ManagedScene {
   private scene = new THREE.Scene();
   private camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
-  private renderer: THREE.WebGLRenderer;
+  private renderer!: THREE.WebGLRenderer;
   private items: ShelfItem[] = [];
   private dumpster!: THREE.Mesh;
   private ro?: ResizeObserver;
@@ -28,9 +28,6 @@ export class Supermarket implements ManagedScene {
   constructor() {
     this.camera.position.set(0, 0.8, 6.2);
     this.camera.lookAt(0, 0, 0);
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    this.renderer.setClearColor(0x000000, 0);
   }
 
   setWasteListener(cb: (count: number) => void): void {
@@ -38,6 +35,9 @@ export class Supermarket implements ManagedScene {
   }
 
   mount(container: HTMLElement): void {
+    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer.setClearColor(0x000000, 0);
     const w = container.clientWidth;
     const h = container.clientHeight;
     this.renderer.setSize(w, h, false);

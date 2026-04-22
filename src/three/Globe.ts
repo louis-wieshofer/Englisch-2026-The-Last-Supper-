@@ -14,7 +14,7 @@ const latLonToXYZ = (lat: number, lon: number, r = 1.005): THREE.Vector3 => {
 export class Globe implements ManagedScene {
   private scene = new THREE.Scene();
   private camera: THREE.PerspectiveCamera;
-  private renderer: THREE.WebGLRenderer;
+  private renderer!: THREE.WebGLRenderer;
   private globe!: THREE.Mesh;
   private dotsGroup = new THREE.Group();
   private hotspots: Array<{ mesh: THREE.Mesh; sev: number; seed: number }> = [];
@@ -26,12 +26,12 @@ export class Globe implements ManagedScene {
   constructor() {
     this.camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
     this.camera.position.z = 3.2;
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    this.renderer.setClearColor(0x000000, 0);
   }
 
   mount(container: HTMLElement): void {
+    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer.setClearColor(0x000000, 0);
     const size = Math.min(container.clientWidth, container.clientHeight) || 200;
     this.renderer.setSize(size, size, false);
     container.appendChild(this.renderer.domElement);

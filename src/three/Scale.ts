@@ -6,7 +6,7 @@ interface Faller { mesh: THREE.Mesh; vy: number; startY: number; }
 export class Scale implements ManagedScene {
   private scene = new THREE.Scene();
   private camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-  private renderer: THREE.WebGLRenderer;
+  private renderer!: THREE.WebGLRenderer;
   private beamGroup = new THREE.Group();
   private fallers: Faller[] = [];
   private ro?: ResizeObserver;
@@ -20,12 +20,12 @@ export class Scale implements ManagedScene {
   constructor() {
     this.camera.position.set(0, 0.2, 6.2);
     this.camera.lookAt(0, -0.1, 0);
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    this.renderer.setClearColor(0x000000, 0);
   }
 
   mount(container: HTMLElement): void {
+    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer.setClearColor(0x000000, 0);
     this.container = container;
     const w = container.clientWidth;
     const h = container.clientHeight;
