@@ -43,10 +43,10 @@
         { "target": "nsis", "arch": ["x64"] },
         { "target": "portable", "arch": ["x64"] }
       ],
-      "artifactName": "TheLastSupper-Setup-${version}.${ext}"
+      "artifactName": "TheLastSupper-Setup.${ext}"
     },
     "portable": {
-      "artifactName": "TheLastSupper-Portable-${version}.${ext}"
+      "artifactName": "TheLastSupper-Portable.${ext}"
     },
     "nsis": {
       "oneClick": false,

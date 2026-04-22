@@ -94,10 +94,11 @@ jobs:
           body: |
             Windows build of **The Last Supper?**
 
-            - **TheLastSupper-Setup-${{ github.sha }}.exe** — proper installer (Start menu shortcut, desktop shortcut, uninstaller).
-            - **TheLastSupper-Portable-${{ github.sha }}.exe** — single-file portable, runs directly from Downloads without installing.
+            - **TheLastSupper-Setup.exe** — proper installer (Start menu shortcut, desktop shortcut, uninstaller).
+            - **TheLastSupper-Portable.exe** — single-file portable, runs directly from Downloads without installing.
 
             Unsigned build — Windows SmartScreen will prompt "More info" → "Run anyway" the first time.
-          prerelease: ${{ github.ref_type != 'tag' }}
+          prerelease: false
+          make_latest: 'true'
           files: |
             release/*.exe
