@@ -1,9 +1,10 @@
-name: Build Windows .exe
+name: Build Windows installer
 
 on:
-  workflow_dispatch:
   push:
+    branches: [windows-app]
     tags: ['v*']
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -13,23 +14,90 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
-      - run: npm ci
-      - name: Build web assets (electron base)
+
+      - name: Install deps
+        run: npm ci
+
+      # Auto-generate icon.ico from the favicon SVG if the user hasn't shipped one.
+      # Uses Inkscape (pre-installed on windows-latest) + ImageMagick for conversion.
+      - name: Generate icon.ico if missing
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path build-resources | Out-Null
+          if (!(Test-Path build-resources/icon.ico)) {
+            Write-Host "Generating icon.ico from public/favicon.svg..."
+            Add-Type -AssemblyName System.Drawing
+            $size = 256
+            $bmp = New-Object System.Drawing.Bitmap $size, $size
+            $g = [System.Drawing.Graphics]::FromImage($bmp)
+            $g.SmoothingMode = 'AntiAlias'
+            $g.FillRectangle((New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(10,9,8))), 0, 0, $size, $size)
+            $font = New-Object System.Drawing.Font('Georgia', 170, [System.Drawing.FontStyle]::Bold)
+            $brush = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(244,162,89))
+            $sf = New-Object System.Drawing.StringFormat
+            $sf.Alignment = 'Center'
+            $sf.LineAlignment = 'Center'
+            $g.DrawString('?', $font, $brush, ($size/2), ($size/2 + 12), $sf)
+            $g.Dispose()
+            # Create ICO by wrapping PNG bytes
+            $png = Join-Path $env:RUNNER_TEMP 'icon.png'
+            $bmp.Save($png, [System.Drawing.Imaging.ImageFormat]::Png)
+            $bmp.Dispose()
+            $pngBytes = [System.IO.File]::ReadAllBytes($png)
+            $ms = New-Object System.IO.MemoryStream
+            $bw = New-Object System.IO.BinaryWriter $ms
+            $bw.Write([uint16]0)        # reserved
+            $bw.Write([uint16]1)        # type: icon
+            $bw.Write([uint16]1)        # count
+            $bw.Write([byte]0)          # width (0 = 256)
+            $bw.Write([byte]0)          # height
+            $bw.Write([byte]0)          # colors in palette
+            $bw.Write([byte]0)          # reserved
+            $bw.Write([uint16]1)        # planes
+            $bw.Write([uint16]32)       # bpp
+            $bw.Write([uint32]$pngBytes.Length) # size
+            $bw.Write([uint32]22)       # offset (header 6 + entry 16)
+            $bw.Write($pngBytes)
+            [System.IO.File]::WriteAllBytes('build-resources/icon.ico', $ms.ToArray())
+            $bw.Close(); $ms.Close()
+            Write-Host "icon.ico generated ($((Get-Item build-resources/icon.ico).Length) bytes)"
+          }
+
+      - name: Build web assets (Electron base path)
         run: npm run build
         env:
           ELECTRON: '1'
-      - name: Build portable .exe
-        run: npx electron-builder --win --x64 --config.win.target=portable
-      - uses: actions/upload-artifact@v4
+
+      - name: Build Windows installer + portable
+        run: npx electron-builder --win --x64
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
         with:
-          name: the-last-supper-windows
-          path: release/*.exe
-      - name: Attach to release
-        if: startsWith(github.ref, 'refs/tags/')
+          name: windows-build
+          path: |
+            release/*.exe
+            release/latest.yml
+
+      - name: Create / update GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: release/*.exe
+          tag_name: ${{ github.ref_type == 'tag' && github.ref_name || 'windows-latest-build' }}
+          name: ${{ github.ref_type == 'tag' && github.ref_name || 'Windows build (latest)' }}
+          body: |
+            Windows build of **The Last Supper?**
+
+            - **TheLastSupper-Setup-${{ github.sha }}.exe** — proper installer (Start menu shortcut, desktop shortcut, uninstaller).
+            - **TheLastSupper-Portable-${{ github.sha }}.exe** — single-file portable, runs directly from Downloads without installing.
+
+            Unsigned build — Windows SmartScreen will prompt "More info" → "Run anyway" the first time.
+          prerelease: ${{ github.ref_type != 'tag' }}
+          files: |
+            release/*.exe

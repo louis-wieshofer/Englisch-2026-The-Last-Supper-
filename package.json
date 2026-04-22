@@ -11,7 +11,7 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "electron:dev": "cross-env ELECTRON=1 npm run build && electron .",
-    "electron:build": "cross-env ELECTRON=1 npm run build && electron-builder --win --x64 --config.win.target=portable"
+    "electron:build": "cross-env ELECTRON=1 npm run build && electron-builder --win --x64"
   },
   "dependencies": {
     "gsap": "^3.12.5",
@@ -29,16 +29,36 @@
   "build": {
     "appId": "com.louis.thelastsupper",
     "productName": "The Last Supper",
+    "copyright": "Copyright © 2026 Ferdinand Kraetschmer, Marko Stanojevic & Louis Wieshofer",
     "directories": {
-      "output": "release"
+      "output": "release",
+      "buildResources": "build-resources"
     },
     "files": [
       "dist/**/*",
       "electron/**/*"
     ],
     "win": {
-      "target": "portable",
-      "icon": "public/icon.ico"
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ],
+      "artifactName": "TheLastSupper-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "TheLastSupper-Portable-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "allowElevation": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "The Last Supper",
+      "uninstallDisplayName": "The Last Supper",
+      "installerHeaderIcon": "build-resources/icon.ico",
+      "deleteAppDataOnUninstall": true
     }
   }
 }
