@@ -1,0 +1,147 @@
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-m);
+  color: var(--cream);
+  background: var(--bg-deep);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Fonts — self-hosted woff2 subsets, with system fallback until files drop in */
+@font-face {
+  font-family: 'Fraunces';
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  src: local('Fraunces Black'), local('Fraunces-Black');
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  src: local('Fraunces Italic'), local('Fraunces-Italic');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  src: local('Inter'), local('Inter-Regular');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+  src: local('JetBrains Mono'), local('JetBrainsMono-Regular');
+}
+
+img, video, canvas { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+ul { list-style: none; }
+
+/* A11y */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Selection */
+::selection { background: var(--amber); color: var(--bg-deep); }
+
+/* Type utilities */
+.display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+.italic {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-style: italic;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100;
+}
+.mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.caption {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+}
+
+/* Container */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Scroll progress */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--gold);
+  z-index: 100;
+  width: 0;
+  transition: width 50ms linear;
+  pointer-events: none;
+}
+
+/* Reveal primitives (applied by reveal.ts) */
+.word-reveal .w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.word-reveal .w > span {
+  display: inline-block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+/* Sections share structure */
+section {
+  position: relative;
+  width: 100%;
+}
+
+/* Hide native cursor on fine pointer — replaced by custom cursor */
+@media (pointer: fine) and (min-width: 900px) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none !important;
+  }
+}

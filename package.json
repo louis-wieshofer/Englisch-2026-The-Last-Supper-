@@ -1,0 +1,43 @@
+{
+  "name": "the-last-supper",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A scrollytelling essay on global food waste vs. hunger — GitHub Pages + Electron build",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "electron:dev": "cross-env ELECTRON=1 npm run build && electron .",
+    "electron:build": "cross-env ELECTRON=1 npm run build && electron-builder --win --x64 --config.win.target=portable"
+  },
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.14",
+    "three": "^0.160.1"
+  },
+  "devDependencies": {
+    "@types/three": "^0.160.0",
+    "cross-env": "^7.0.3",
+    "electron": "^30.0.0",
+    "electron-builder": "^24.13.3",
+    "typescript": "^5.4.0",
+    "vite": "^5.2.0"
+  },
+  "build": {
+    "appId": "com.louis.thelastsupper",
+    "productName": "The Last Supper",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "public/icon.ico"
+    }
+  }
+}

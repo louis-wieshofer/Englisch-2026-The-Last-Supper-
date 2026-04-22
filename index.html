@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0A0908" />
+    <meta name="description" content="The Last Supper? — a scrollytelling essay on global food waste and world hunger." />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..900,0..100;1,9..144,400..900,0..100&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..900,0..100;1,9..144,400..900,0..100&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+    <title>The Last Supper? — A scrollytelling essay</title>
+  </head>
+  <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
+
+    <header class="nav" role="banner">
+      <div class="nav-inner">
+        <a class="brand" href="#" aria-label="The Last Supper — home">
+          <span class="brand-dot" aria-hidden="true"></span>
+          <span>The Last Supper</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#paradox">Paradox</a>
+          <a href="#supermarket">Supermarket</a>
+          <a href="#fridge">Fridge</a>
+          <a href="#solutions">Solutions</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="nav-icon-btn" data-audio-toggle aria-pressed="false" aria-label="Toggle ambient audio">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="hero" aria-labelledby="hero-title">
+        <div class="hero-particles" id="hero-particles" aria-hidden="true"></div>
+        <div class="hero-inner">
+          <p class="hero-eyebrow caption">A scrollytelling essay · 2026</p>
+          <h1 class="hero-title" id="hero-title" data-reveal data-reveal-stagger="80" data-reveal-duration="800">
+            <span>THE</span>
+            <span>LAST</span>
+            <span>SUPPER</span>
+            <span class="hero-globe-slot" id="hero-globe" aria-hidden="true"></span>
+          </h1>
+          <div class="sr-only">
+            Globe showing hunger severity hotspots concentrated in Sub-Saharan Africa, South Asia, parts of Southeast Asia, and Latin America.
+          </div>
+          <p class="hero-sub" data-reveal data-reveal-stagger="20" data-reveal-duration="700">
+            We throw away a third of everything we grow. Meanwhile, 828 million people go to bed hungry. Scroll.
+          </p>
+        </div>
+        <div class="hero-caption caption">A scrollytelling essay · 2026</div>
+        <div class="hero-scroll" aria-hidden="true">
+          <span class="hero-scroll-dot"></span>
+          <span>Scroll</span>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 110;
+  display: none;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cream);
+  transform: translate(-50%, -50%);
+  transition: width 200ms var(--ease-out-expo), height 200ms var(--ease-out-expo), opacity 200ms var(--ease-out-expo);
+}
+.cursor-ring {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--cream);
+  transform: translate(-50%, -50%);
+  transition: width 260ms var(--ease-out-expo), height 260ms var(--ease-out-expo), border-color 260ms var(--ease-out-expo);
+}
+html.cursor-interactive .cursor-dot { opacity: 0; }
+html.cursor-interactive .cursor-ring {
+  width: 80px;
+  height: 80px;
+  border-color: var(--accent);
+}
+
+@media (pointer: coarse), (max-width: 899px) {
+  .cursor { display: none !important; }
+}

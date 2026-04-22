@@ -1,0 +1,112 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  padding: 160px var(--gutter) 96px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+}
+.hero .hero-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero .hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max-w);
+  width: 100%;
+  margin: 0 auto;
+}
+.hero .hero-eyebrow {
+  color: var(--cream-muted);
+  margin-bottom: var(--s-4);
+}
+.hero .hero-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100;
+  font-size: var(--fs-display-xl);
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+  color: var(--cream);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.08em;
+  align-items: baseline;
+}
+.hero .hero-title .hero-globe-slot {
+  display: inline-block;
+  width: clamp(80px, 14vw, 220px);
+  height: clamp(80px, 14vw, 220px);
+  vertical-align: baseline;
+  position: relative;
+  top: 0.02em;
+}
+.hero .hero-title .hero-globe-slot canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+.hero .hero-sub {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-style: italic;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100;
+  font-size: var(--fs-body-l);
+  line-height: 1.5;
+  color: var(--cream-muted);
+  max-width: 48ch;
+  margin-top: var(--s-5);
+}
+.hero .hero-sub em {
+  color: var(--gold);
+  font-style: italic;
+}
+.hero .hero-caption {
+  position: absolute;
+  bottom: var(--s-5);
+  left: var(--gutter);
+  z-index: 2;
+}
+.hero .hero-scroll {
+  position: absolute;
+  bottom: var(--s-5);
+  right: var(--gutter);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-1);
+  color: var(--cream-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.hero .hero-scroll::before {
+  content: '';
+  width: 1px;
+  height: 56px;
+  background: linear-gradient(to bottom, transparent, var(--cream-muted));
+}
+.hero .hero-scroll-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--amber);
+  animation: scroll-dot 2.4s var(--ease-out-expo) infinite;
+}
+@keyframes scroll-dot {
+  0% { transform: translateY(-40px); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(20px); opacity: 0; }
+}
+
+@media (max-width: 600px) {
+  .hero .hero-sub { font-size: 18px; }
+  .hero .hero-caption, .hero .hero-scroll { position: static; margin-top: var(--s-3); }
+}
