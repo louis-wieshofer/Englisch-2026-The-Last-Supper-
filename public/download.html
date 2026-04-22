@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0A0908" />
+    <meta name="description" content="Download The Last Supper? — Windows installer and portable build." />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..900,0..100;1,9..144,400..900,0..100&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+    <title>Download · The Last Supper?</title>
+    <style>
+      :root {
+        --bg-deep: #0A0908;
+        --bg-elev: #161513;
+        --cream: #FAF0CA;
+        --cream-muted: rgba(250, 240, 202, 0.6);
+        --cream-dim: rgba(250, 240, 202, 0.32);
+        --amber: #F4A259;
+        --crimson: #BC4749;
+        --moss: #588157;
+        --gold: #E0CA3C;
+        --hairline: rgba(250, 240, 202, 0.08);
+        --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { height: 100%; }
+      body {
+        font-family: 'Inter', sans-serif;
+        color: var(--cream);
+        background: var(--bg-deep);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: inherit; text-decoration: none; }
+      main {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 120px 24px 96px;
+      }
+      .back {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--cream-muted);
+        margin-bottom: 48px;
+        display: inline-block;
+        border-bottom: 1px solid var(--hairline);
+        padding-bottom: 2px;
+        transition: color 300ms var(--ease-out-expo), border-color 300ms var(--ease-out-expo);
+      }
+      .back:hover { color: var(--amber); border-color: var(--amber); }
+      .eyebrow {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--cream-muted);
+        margin-bottom: 24px;
+      }
+      h1 {
+        font-family: 'Fraunces', Georgia, serif;
+        font-weight: 900;
+        font-variation-settings: 'opsz' 144, 'SOFT' 100;
+        font-size: clamp(56px, 9vw, 112px);
+        line-height: 0.92;
+        letter-spacing: -0.045em;
+        color: var(--cream);
+        margin-bottom: 24px;
+      }
+      h1 em {
+        font-family: 'Fraunces', Georgia, serif;
+        font-weight: 500;
+        font-style: italic;
+        color: var(--gold);
+      }
+      .lede {
+        font-size: clamp(17px, 1.5vw, 22px);
+        color: var(--cream-muted);
+        max-width: 52ch;
+        margin-bottom: 64px;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 64px;
+      }
+      .card {
+        background: var(--bg-elev);
+        border: 1px solid var(--hairline);
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        transition: border-color 300ms var(--ease-out-expo), transform 300ms var(--ease-out-expo);
+      }
+      .card:hover { border-color: var(--amber); transform: translateY(-4px); }
+      .card h2 {
+        font-family: 'Fraunces', Georgia, serif;
+        font-weight: 900;
+        font-variation-settings: 'opsz' 144, 'SOFT' 100;
+        font-size: 32px;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+      .card p { color: var(--cream-muted); font-size: 15px; flex: 1; }
+      .card .tag {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--amber);
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 22px;
+        background: var(--amber);
+        color: var(--bg-deep);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        border: 1px solid var(--amber);
+        transition: background 300ms var(--ease-out-expo), color 300ms var(--ease-out-expo);
+      }
+      .btn:hover { background: transparent; color: var(--amber); }
+      .btn.secondary {
+        background: transparent;
+        color: var(--cream);
+        border-color: var(--hairline);
+      }
+      .btn.secondary:hover { color: var(--amber); border-color: var(--amber); background: transparent; }
+      .section-h {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--cream-muted);
+        margin: 48px 0 16px;
+      }
+      .info {
+        display: grid;
+        grid-template-columns: 140px 1fr;
+        gap: 12px 24px;
+        font-size: 15px;
+        color: var(--cream-muted);
+      }
+      .info dt { color: var(--cream-dim); font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.14em; padding-top: 4px; }
+      .warn {
+        margin-top: 32px;
+        padding: 20px 24px;
+        background: rgba(188, 71, 73, 0.08);
+        border-left: 2px solid var(--crimson);
+        font-size: 14px;
+        color: var(--cream-muted);
+      }
+      .warn strong { color: var(--cream); }
+      footer {
+        margin-top: 96px;
+        padding-top: 32px;
+        border-top: 1px solid var(--hairline);
+        display: flex;
+        justify-content: space-between;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--cream-dim);
+      }
+      @media (max-width: 680px) {
+        main { padding: 80px 20px 64px; }
+        .cards { grid-template-columns: 1fr; }
+        footer { flex-direction: column; gap: 8px; }
+        .info { grid-template-columns: 1fr; gap: 4px 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a class="back" href="./">← Back to the essay</a>
+      <p class="eyebrow">Windows build · 2026</p>
+      <h1>Take it <em>offline</em>.</h1>
+      <p class="lede">
+        Install The Last Supper? on your Windows machine. The installer adds a Start menu entry and desktop shortcut; the portable version runs directly from your Downloads folder without installing anything. Both bundles are built on GitHub Actions and published to the Releases page.
+      </p>
+
+      <div class="cards">
+        <article class="card">
+          <span class="tag">Installer · recommended</span>
+          <h2>TheLastSupper-Setup.exe</h2>
+          <p>Full Windows installer with progress UI, Start menu shortcut, desktop shortcut, and clean uninstall via Control Panel.</p>
+          <a class="btn" href="https://github.com/louis-wieshofer/Englisch-2026-The-Last-Supper-/releases/latest" target="_blank" rel="noopener">
+            Download installer →
+          </a>
+        </article>
+        <article class="card">
+          <span class="tag">Portable</span>
+          <h2>TheLastSupper-Portable.exe</h2>
+          <p>Single-file executable, no installation. Runs directly from Downloads or a USB stick. Leaves no traces behind.</p>
+          <a class="btn secondary" href="https://github.com/louis-wieshofer/Englisch-2026-The-Last-Supper-/releases/latest" target="_blank" rel="noopener">
+            Download portable →
+          </a>
+        </article>
+      </div>
+
+      <h3 class="section-h">System requirements</h3>
+      <dl class="info">
+        <dt>OS</dt><dd>Windows 10 or 11, 64-bit</dd>
+        <dt>RAM</dt><dd>4 GB recommended</dd>
+        <dt>Disk</dt><dd>~260 MB free</dd>
+        <dt>Graphics</dt><dd>Any GPU with WebGL 1 support</dd>
+      </dl>
+
+      <div class="warn">
+        <strong>SmartScreen notice.</strong> This build is unsigned, so Windows may show a blue "Microsoft Defender SmartScreen prevented an unrecognized app" prompt the first time. Click <em>More info</em> → <em>Run anyway</em>. Signing costs money and this is a school project — so the builds are shipped as-is. The full source is on <a href="https://github.com/louis-wieshofer/Englisch-2026-The-Last-Supper-" target="_blank" rel="noopener" style="color: var(--amber); text-decoration: underline">GitHub</a> if you want to inspect or build it yourself.
+      </div>
+
+      <footer>
+        <span>Built by Ferdinand Kraetschmer, Marko Stanojevic &amp; Louis Wieshofer · 2026</span>
+        <span>No cookies. No trackers. No ads.</span>
+      </footer>
+    </main>
+  </body>
+</html>
