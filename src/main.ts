@@ -2,7 +2,14 @@ import './styles/tokens.css';
 import './styles/base.css';
 import './styles/nav.css';
 import './styles/cursor.css';
+import './styles/sections/loader.css';
 import './styles/sections/hero.css';
+import './styles/sections/paradox.css';
+import './styles/sections/supermarket.css';
+import './styles/sections/fridge.css';
+import './styles/sections/solutions.css';
+import './styles/sections/outro.css';
+import './styles/sections/footer.css';
 
 import { initSmoothScroll } from './lib/lenis';
 import { initCursor } from './lib/cursor';
@@ -12,6 +19,11 @@ import { initCounters } from './lib/counter';
 import { initAudio } from './lib/audio';
 import { SceneManager } from './three/SceneManager';
 import { initHero } from './sections/Hero';
+import { initParadox } from './sections/Paradox';
+import { initSupermarket } from './sections/Supermarket';
+import { initFridge } from './sections/Fridge';
+import { initSolutions } from './sections/Solutions';
+import { initLoadingScreen } from './sections/LoadingScreen';
 
 const onReady = (cb: () => void): void => {
   if (document.readyState === 'loading') {
@@ -21,11 +33,15 @@ const onReady = (cb: () => void): void => {
   }
 };
 
-onReady(() => {
+const mountSite = (): void => {
   initSmoothScroll();
 
   const sceneManager = new SceneManager();
   initHero(sceneManager);
+  initParadox(sceneManager);
+  initSupermarket(sceneManager);
+  initFridge(sceneManager);
+  initSolutions();
 
   initCursor();
   initMagnetic();
@@ -54,4 +70,18 @@ onReady(() => {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
   }
+
+  // Back to top
+  document.querySelectorAll<HTMLAnchorElement>('[data-back-to-top]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+};
+
+onReady(() => {
+  initLoadingScreen(() => {
+    mountSite();
+  });
 });

@@ -8,11 +8,17 @@
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..900,0..100;1,9..144,400..900,0..100&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..900,0..100;1,9..144,400..900,0..100&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
     <title>The Last Supper? — A scrollytelling essay</title>
   </head>
   <body>
+    <!-- Loader -->
+    <div class="loader" id="loader" role="status" aria-live="polite">
+      <div class="loader-canvas" id="loader-canvas" aria-hidden="true"></div>
+      <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
+      <div class="loader-caption">FAO · UN · WFP · UNEP FOOD WASTE INDEX 2024</div>
+    </div>
+
     <div class="scroll-progress" aria-hidden="true"></div>
 
     <header class="nav" role="banner">
@@ -39,11 +45,12 @@
     </header>
 
     <main>
+      <!-- 1. HERO -->
       <section class="hero" id="hero" aria-labelledby="hero-title">
         <div class="hero-particles" id="hero-particles" aria-hidden="true"></div>
         <div class="hero-inner">
           <p class="hero-eyebrow caption">A scrollytelling essay · 2026</p>
-          <h1 class="hero-title" id="hero-title" data-reveal data-reveal-stagger="80" data-reveal-duration="800">
+          <h1 class="hero-title" id="hero-title">
             <span>THE</span>
             <span>LAST</span>
             <span>SUPPER</span>
@@ -62,7 +69,169 @@
           <span>Scroll</span>
         </div>
       </section>
+
+      <!-- 2. PARADOX -->
+      <section class="paradox" id="paradox" aria-labelledby="paradox-left-label">
+        <div class="paradox-inner">
+          <div class="paradox-side">
+            <span class="paradox-eyebrow">Waste</span>
+            <span class="paradox-number" data-counter="1300000000" aria-live="polite">0</span>
+            <span class="paradox-label" id="paradox-left-label">Tons of food wasted every year</span>
+            <span class="paradox-sub">Enough to feed 2 billion people. Four times over.</span>
+          </div>
+          <div class="paradox-scene" id="paradox-scene" aria-hidden="true"></div>
+          <div class="sr-only">Illustration of a tipping scale: one pan overflowing with wheat grains, the opposite pan a crimson empty bowl.</div>
+          <div class="paradox-side right">
+            <span class="paradox-eyebrow">Hunger</span>
+            <span class="paradox-number" data-counter="828000000" aria-live="polite">0</span>
+            <span class="paradox-label">People going hungry tonight</span>
+            <span class="paradox-sub">One in ten humans. Most of them farmers.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. SUPERMARKET -->
+      <section class="supermarket" id="supermarket" aria-labelledby="supermarket-title">
+        <div class="sm-inner">
+          <div class="sm-scene" id="supermarket-scene" aria-hidden="true">
+            <div class="sm-hud">Items wasted this session<strong data-waste-count>0</strong></div>
+          </div>
+          <div class="sm-text">
+            <h2 class="sm-title" id="supermarket-title">Aisle Six: Where Food Goes to Die.</h2>
+            <p class="sm-p" data-reveal data-reveal-stagger="30" data-reveal-duration="800">
+              Supermarkets discard perfectly edible food because of cosmetic standards and "sell-by" dates that carry no legal meaning. In the EU alone, retail accounts for 5% of food waste — around nine million tons a year.
+            </p>
+            <p class="sm-p" data-reveal data-reveal-stagger="30" data-reveal-duration="800">
+              A banana with one brown spot. A yogurt two days from its date. A dented can. All binned, despite being safe and nutritious. The rules are written for shelves, not stomachs.
+            </p>
+            <blockquote class="sm-pull">"We do not have a food shortage. We have a food distribution catastrophe."</blockquote>
+            <p class="sm-p" data-reveal data-reveal-stagger="30" data-reveal-duration="800">
+              That waste carries a carbon footprint equivalent to 37 million cars on the road. If food waste were a country, it would be the third-largest emitter of greenhouse gases on the planet, after China and the United States.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. FRIDGE -->
+      <section class="fridge" id="fridge" aria-labelledby="fridge-title">
+        <h2 class="fr-title" id="fridge-title">Your Fridge Is a Graveyard.</h2>
+        <div class="fr-inner">
+          <div class="fr-panel" data-magnetic="8">
+            <span class="fr-panel-label">A</span>
+            <p>Households are the single largest source of food waste in high-income countries — bigger than restaurants, supermarkets, and farms combined.</p>
+          </div>
+          <div class="fr-scene" id="fridge-scene" aria-hidden="true"></div>
+          <div class="sr-only">Interactive fridge illustration with three drawers; each drawer, when opened, reveals labels of forgotten food like spinach 14 days old, milk 8 days old, raspberries 9 days old.</div>
+          <div class="fr-right">
+            <div class="fr-panel" data-magnetic="8">
+              <span class="fr-panel-label">B</span>
+              <p>The average European household wastes 70 kg of food per person per year. Roughly €700 straight into the bin.</p>
+            </div>
+            <div class="fr-panel" data-magnetic="8">
+              <span class="fr-panel-label">C</span>
+              <p>Most of it isn't leftovers. It's food we bought and never opened.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. SOLUTIONS -->
+      <section class="solutions" id="solutions" aria-labelledby="solutions-title">
+        <div class="sol-inner">
+          <h2 class="sol-title" id="solutions-title">Not Every Problem Needs a Miracle.</h2>
+          <p class="sol-intro">This one needs habits. Here are three shifts, ordered from easiest to biggest impact.</p>
+          <div class="sol-grid">
+            <article class="flip-card" data-magnetic="10">
+              <div class="flip-inner">
+                <div class="face front">
+                  <span class="idx">01</span>
+                  <span class="t">Shop with a list.</span>
+                  <span class="hint">Tap to flip</span>
+                </div>
+                <div class="face back">
+                  <span class="idx">01</span>
+                  <p class="body">Households that shop with a list waste up to 20% less food. Plan meals for 3–4 days, not 7. Buy less, more often.</p>
+                  <span class="hint">Tap to flip back</span>
+                </div>
+              </div>
+            </article>
+            <article class="flip-card" data-magnetic="10">
+              <div class="flip-inner">
+                <div class="face front">
+                  <span class="idx">02</span>
+                  <span class="t">Love your leftovers.</span>
+                  <span class="hint">Tap to flip</span>
+                </div>
+                <div class="face back">
+                  <span class="idx">02</span>
+                  <p class="body">The easiest climate action in your kitchen: eat what you already bought. "Leftover Friday" is a rule worth stealing.</p>
+                  <span class="hint">Tap to flip back</span>
+                </div>
+              </div>
+            </article>
+            <article class="flip-card" data-magnetic="10">
+              <div class="flip-inner">
+                <div class="face front">
+                  <span class="idx">03</span>
+                  <span class="t">Rescue, don't buy.</span>
+                  <span class="hint">Tap to flip</span>
+                </div>
+                <div class="face back">
+                  <span class="idx">03</span>
+                  <p class="body">Too Good To Go, Olio, Karma — apps that connect you to bakeries, restaurants, and neighbors giving away surplus food at near-zero cost. 90 million users and counting.</p>
+                  <span class="hint">Tap to flip back</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. OUTRO -->
+      <section class="outro" id="outro" aria-labelledby="outro-quote">
+        <div class="outro-inner">
+          <p class="outro-quote" id="outro-quote" data-reveal data-reveal-stagger="60" data-reveal-duration="900">
+            The cheapest meal you'll ever eat is the one you don't throw away.
+          </p>
+          <p class="outro-attr caption">— Sources: FAO, UNEP Food Waste Index Report 2024, World Food Programme</p>
+        </div>
+      </section>
     </main>
+
+    <!-- 7. FOOTER -->
+    <footer class="footer" role="contentinfo">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <h4>Built</h4>
+          <p>Built by [your name here] · 2026</p>
+        </div>
+        <div class="footer-col">
+          <h4>Sources & further reading</h4>
+          <ul>
+            <li><a href="https://fao.org" target="_blank" rel="noopener noreferrer">fao.org</a></li>
+            <li><a href="https://www.unep.org/resources/report/food-waste-index-report-2024" target="_blank" rel="noopener noreferrer">UNEP Food Waste Index 2024</a></li>
+            <li><a href="https://www.wfp.org/hunger-map" target="_blank" rel="noopener noreferrer">wfp.org/hunger-map</a></li>
+            <li><a href="https://www.toogoodtogo.com" target="_blank" rel="noopener noreferrer">toogoodtogo.com</a></li>
+          </ul>
+        </div>
+        <div class="footer-col right">
+          <h4>Artifacts</h4>
+          <div class="icon-row">
+            <a href="https://github.com/louis-wieshofer/Englisch-2026-The-Last-Supper-" target="_blank" rel="noopener noreferrer" aria-label="View source on GitHub">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.69-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.3 1.19-3.1-.12-.29-.52-1.48.11-3.08 0 0 .97-.31 3.18 1.18.92-.26 1.9-.39 2.88-.39.98 0 1.96.13 2.88.39 2.21-1.49 3.18-1.18 3.18-1.18.63 1.6.23 2.79.11 3.08.74.8 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.41.35.77 1.04.77 2.1 0 1.52-.01 2.74-.01 3.11 0 .31.21.67.8.56 4.56-1.52 7.85-5.83 7.85-10.91C23.5 5.74 18.27.5 12 .5z"/></svg>
+            </a>
+            <a href="./release/The%20Last%20Supper%201.0.0.exe" aria-label="Download the Windows executable">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </a>
+          </div>
+          <p><a href="#" data-back-to-top>↑ Back to top</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>No cookies. No trackers. No ads. Just facts.</span>
+        <span>Englisch 2026</span>
+      </div>
+    </footer>
 
     <script type="module" src="/src/main.ts"></script>
   </body>
