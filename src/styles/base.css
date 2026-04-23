@@ -1,6 +1,12 @@
 /* Reset */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scrollbar-gutter: stable;
+  hanging-punctuation: first last;
+}
 body {
   font-family: var(--font-body);
   font-size: var(--fs-body-m);
@@ -11,6 +17,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 /* Fonts — self-hosted woff2 subsets, with system fallback until files drop in */
@@ -144,4 +152,9 @@ section {
   html.has-custom-cursor * {
     cursor: none !important;
   }
+}
+
+/* Tap targets on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  a, button, [role="button"] { min-height: 36px; }
 }

@@ -1,12 +1,16 @@
 .outro {
   position: relative;
-  min-height: 120vh;
+  min-height: 100vh;
+  min-height: 100svh;
   padding: var(--s-8) var(--gutter);
   background: var(--bg-deep);
   border-top: 1px solid var(--hairline);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+@media (min-width: 1024px) {
+  .outro { min-height: 120vh; }
 }
 .outro .outro-inner {
   max-width: 1100px;

@@ -8,8 +8,8 @@
   max-width: var(--max-w);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 420px 1fr;
-  gap: var(--s-5);
+  grid-template-columns: minmax(0, 1fr) clamp(280px, 30vw, 420px) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 48px);
   align-items: center;
 }
 .fridge .fr-title {
@@ -32,6 +32,7 @@
   background: rgba(22, 21, 19, 0.5);
   border: 1px solid var(--hairline);
   max-width: 360px;
+  width: 100%;
 }
 .fridge .fr-panel .fr-panel-label {
   font-family: var(--font-mono);
@@ -53,7 +54,24 @@
 }
 .fridge .fr-scene canvas { width: 100% !important; height: 100% !important; display: block; }
 .fridge .fr-right { display: flex; flex-direction: column; gap: var(--s-3); }
-@media (max-width: 900px) {
-  .fridge .fr-inner { grid-template-columns: 1fr; }
-  .fridge .fr-scene { max-width: 380px; margin: 0 auto; }
+@media (max-width: 1040px) {
+  .fridge .fr-inner {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "scene scene" "panelA panelright";
+    gap: var(--s-4);
+    align-items: start;
+  }
+  .fridge .fr-scene { grid-area: scene; max-width: 360px; margin: 0 auto; }
+  .fridge > .fr-inner > .fr-panel:first-of-type { grid-area: panelA; }
+  .fridge .fr-right { grid-area: panelright; }
+}
+@media (max-width: 720px) {
+  .fridge { padding: var(--s-7) var(--gutter); }
+  .fridge .fr-inner {
+    grid-template-columns: 1fr;
+    grid-template-areas: "scene" "panelA" "panelright";
+    gap: var(--s-4);
+  }
+  .fridge .fr-scene { max-width: 320px; }
+  .fridge .fr-panel { max-width: 100%; }
 }

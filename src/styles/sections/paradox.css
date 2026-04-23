@@ -1,6 +1,7 @@
 .paradox {
   position: relative;
   min-height: 100vh;
+  min-height: 100svh;
   padding: var(--s-8) var(--gutter);
   background: var(--bg-deep);
   border-top: 1px solid var(--hairline);
@@ -9,10 +10,10 @@
   max-width: var(--max-w);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: var(--s-6);
+  grid-template-columns: 1fr minmax(220px, 320px) 1fr;
+  gap: clamp(24px, 4vw, 64px);
   align-items: center;
-  min-height: 80vh;
+  min-height: 70vh;
 }
 .paradox .paradox-side {
   display: flex;
@@ -68,8 +69,9 @@
 }
 .paradox .paradox-side.right .paradox-sub { margin-left: auto; }
 .paradox .paradox-scene {
-  width: 280px;
-  height: 420px;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 2 / 3;
   justify-self: center;
 }
 .paradox .paradox-scene canvas {
@@ -77,11 +79,31 @@
   height: 100% !important;
 }
 
-@media (max-width: 900px) {
-  .paradox .paradox-inner { grid-template-columns: 1fr; gap: var(--s-5); }
-  .paradox .paradox-side.right { text-align: left; align-items: flex-start; }
+@media (max-width: 960px) {
+  .paradox { padding: var(--s-7) var(--gutter); }
+  .paradox .paradox-inner {
+    grid-template-columns: 1fr;
+    grid-template-areas: "left" "scene" "right";
+    gap: var(--s-5);
+    min-height: 0;
+    text-align: center;
+    justify-items: center;
+  }
+  .paradox .paradox-side,
+  .paradox .paradox-side.right {
+    text-align: center;
+    align-items: center;
+  }
+  .paradox .paradox-side { grid-area: left; }
+  .paradox .paradox-side.right { grid-area: right; }
+  .paradox .paradox-scene { grid-area: scene; max-width: 260px; }
   .paradox .paradox-side.right .paradox-label,
   .paradox .paradox-side.right .paradox-sub { margin-left: 0; }
   .paradox .paradox-side.right .paradox-eyebrow { flex-direction: row; }
-  .paradox .paradox-scene { width: 240px; height: 360px; }
+  .paradox .paradox-label,
+  .paradox .paradox-sub { max-width: 32ch; }
+}
+@media (max-width: 480px) {
+  .paradox .paradox-scene { max-width: 220px; }
+  .paradox .paradox-number { font-size: clamp(42px, 14vw, 72px); }
 }
