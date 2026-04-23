@@ -57,7 +57,7 @@ export class Fridge implements ManagedScene {
   private container?: HTMLElement;
 
   constructor() {
-    this.camera.position.set(0, 0, 3.4);
+    this.camera.position.set(0, 0, 4.6);
   }
 
   mount(container: HTMLElement): void {
@@ -119,8 +119,8 @@ export class Fridge implements ManagedScene {
           depthTest: false,
         });
         const sprite = new THREE.Sprite(spriteMat);
-        sprite.scale.set(0.9, 0.22, 1);
-        sprite.position.set(-0.4 + i * 0.4, 0, 0.2);
+        sprite.scale.set(0.7, 0.18, 1);
+        sprite.position.set(-0.32 + i * 0.32, 0, 0.2);
         g.add(sprite);
         labels.push(sprite);
       });
@@ -173,7 +173,7 @@ export class Fridge implements ManagedScene {
   private toggleDrawer(i: number): void {
     const d = this.drawers[i];
     d.open = !d.open;
-    const targetZ = d.open ? 1.2 : 0.55;
+    const targetZ = d.open ? 0.95 : 0.55;
     gsap.to(d.group.position, {
       z: targetZ,
       duration: 0.5,
